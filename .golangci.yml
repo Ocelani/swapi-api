@@ -1,0 +1,46 @@
+run:
+  timeout: 5m
+  tests: false
+
+linters-settings:
+  errcheck:
+    check-type-assertions: true
+  gofmt:
+    simplify: true
+  goimports:
+    local-prefixes: github.com/Ocelani/swapi-planets
+  govet:
+    check-shadowing: true
+    fieldalignment: true
+
+linters:
+  enable:
+    - asciicheck
+    - deadcode
+    - dupl
+    - durationcheck
+    - exportloopref
+    - gocritic
+    - gocyclo
+    - gofmt
+    - goimports
+    - revive
+    - gosec
+    - gosimple
+    - govet
+    - ineffassign
+    - lll
+    - makezero
+    - misspell
+    - prealloc
+    - rowserrcheck
+    - staticcheck
+    - unconvert
+    - unparam
+    - unused
+    - errcheck
+
+issues:
+  exclude-rules:
+    - path: "internal"
+      text: ".*"

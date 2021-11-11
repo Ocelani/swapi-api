@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package planet;
+
+option go_package = "./gen";
+
+message Planet {
+  string id = 1;
+  string name = 2;
+  string climate = 3;
+  string terrain = 4;
+  int64 film = 5;
+}
+
+message GetPlanetRequest {
+  Planet planet = 1;
+}
+
+service PlanetService {
+  rpc getPlanet(GetPlanetRequest) returns (Planet) {}
+}

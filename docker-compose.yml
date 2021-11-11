@@ -1,0 +1,42 @@
+version: "3.8"
+
+services:
+  traefik:
+    image: traefik:v2.4.2
+    container_name: traefik
+    command:
+      - "--log.level=DEBUG"
+      - "--api=true"
+      - "--api.dashboard=true"
+      - "--api.insecure=true" # Don't do that in production
+      - "--providers.docker"
+      - "--entrypoints.web.address=:80"
+    labels: {}
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - "8080:8080"
+      - "80:80"
+
+  planet:
+    container_name: planet
+    build:
+      context: .
+    labels:
+      - traefik.http.routers.planet.rule=Host(`localhost`) && PathPrefix(`/planet`)
+      - traefik.http.services.planet.loadbalancer.server.port=4000
+    expose:
+      - "4000"
+    depends_on:
+      - mongo
+
+  mongo:
+    container_name: mongo
+    image: mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin
+    ports:
+      - "27017:27017"
+    expose:
+      - "27017"
