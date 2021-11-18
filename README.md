@@ -1,7 +1,5 @@
 
-# Americanas SA - Back End Challenge
-
-Código destinado ao desafio Back End da Americanas SA. 
+# Back End Challenge
 
 Temática: Star Wars planets API
 
